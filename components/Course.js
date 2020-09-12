@@ -11,6 +11,12 @@ export default class Course extends HTMLElement {
   }
 
   connectedCallback () {
+    const period = this.getAttribute('period') || ''
+    const className = this.getAttribute('className') || ''
+    const day = this.getAttribute('day') || ''
+    const startTime = this.getAttribute('startTime') || ''
+    const endTime = this.getAttribute('endTime') || ''
+
     const template = `
       <style>
         .course {
@@ -25,7 +31,7 @@ export default class Course extends HTMLElement {
         <i class="icon" title="Delete Course">delete_sweep</i>
         <fieldset>
           <label for="period">Period</label>
-          <input list="periodList" name="period" size="8">
+          <input list="periodList" name="period" size="8" tabindex="1" value="${period}">
           <datalist id="periodList">
             <option value="1">
             <option value="2">
@@ -42,7 +48,7 @@ export default class Course extends HTMLElement {
         </fieldset>
         <fieldset>
           <label for="className">Class</label>
-          <input name="className" list="classNameList" type="text" autocomplete="off" required>
+          <input name="className" list="classNameList" type="text" tabindex="2" autocomplete="off" value="${className}" required>
           <datalist id="classNameList">
             <option value="Art">
             <option value="Break">
@@ -62,21 +68,21 @@ export default class Course extends HTMLElement {
         </fieldset>
         <fieldset>
           <label for="day">Day</label>
-          <select name="day" required>
-            <option value="1">Monday</option>
-            <option value="2">Tuesday</option>
-            <option value="3">Wednesday</option>
-            <option value="4">Thursday</option>
-            <option value="5">Friday</option>
+          <select id="day" name="day" tabindex="3" required>
+            <option value="1" ${day === 1 ? 'selected' : ''}>Monday</option>
+            <option value="2" ${day === 2 ? 'selected' : ''}>Tuesday</option>
+            <option value="3" ${day === 3 ? 'selected' : ''}>Wednesday</option>
+            <option value="4" ${day === 4 ? 'selected' : ''}>Thursday</option>
+            <option value="5" ${day === 5 ? 'selected' : ''}>Friday</option>
           </select>
         </fieldset>
         <fieldset>
           <label for="startTime">Start Time</label>
-          <input type="time" name="startTime" min="06:00" max="21:00" required>
+          <input type="time" name="startTime" min="06:00" max="21:00" value="${startTime}" tabindex="4" required>
         </fieldset>
         <fieldset>
           <label for="endTime">End Time</label>
-          <input type="time" name="endTime" min="06:00" max="21:00" required>
+          <input type="time" name="endTime" min="06:00" max="21:00" value="${endTime}" tabindex="5" required>
         </fieldset>
       </div>
     `
@@ -101,6 +107,9 @@ export default class Course extends HTMLElement {
       this.shadow.querySelectorAll('input').forEach(input => {
         data[input.getAttribute('name')] = input.value ? input.value : ''
       })
+
+      const day = this.shadow.getElementById('day')
+      data.day = day.options[day.selectedIndex].value
 
       e.detail(data)
     })

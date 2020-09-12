@@ -3,6 +3,7 @@
   "version": "1.0",
   "description": "Receive notifications when your children's classes are about to start.",
   "manifest_version": 2,
+  "default_locale": "en",
   "permissions": ["storage", "notifications"],
   "options_page": "options.html",
   "icons": {

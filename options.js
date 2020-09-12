@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
   addIcon.addEventListener('click', add)
   saveIcon.addEventListener('click', save)
 
+  load()
 
   // window.setInterval(poll, 5000)
   /*
@@ -56,5 +57,31 @@ function save () {
 }
 
 function load () {
-  chrome.storage.sync.get('class-tracker', data => console.log(data['class-tracker']))
+  chrome.storage.sync.get('class-tracker', data => {
+    console.log(data['class-tracker'])
+    const record = data['class-tracker']
+
+    if (record) {
+      const students = JSON.parse(record)
+      students.forEach(student => {
+        const studentElem = document.createElement('ext-student')
+        studentElem.setAttribute('firstName', student.firstName || '')
+
+        studentsDiv.appendChild(studentElem)
+
+        if (student.courses) {
+          student.courses.forEach(course => {
+            const courseElem = document.createElement('ext-course')
+            courseElem.setAttribute('period', course.period || '')
+            courseElem.setAttribute('className', course.className || '')
+            courseElem.setAttribute('day', course.day || '')
+            courseElem.setAttribute('startTime', course.startTime || '')
+            courseElem.setAttribute('endTime', course.endTime || '')
+
+            studentElem.appendChild(courseElem)
+          })
+        }
+      })
+    }
+  })
 }

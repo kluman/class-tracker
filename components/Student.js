@@ -1,6 +1,6 @@
 export default class Student extends HTMLElement {
     static get observedAttributes() { 
-      return ['save', 'import']
+      return []
     }
 
     constructor () {
@@ -10,6 +10,8 @@ export default class Student extends HTMLElement {
     }
 
     connectedCallback () {
+      const firstName = this.getAttribute('firstName') || ''
+
       const template = `
         <style>
           .student {
@@ -21,17 +23,16 @@ export default class Student extends HTMLElement {
             margin: 0;
             border: solid 1px #cdcdcd;
           }
-          li {
-            margin: 10px;
-          }
         </style>
         <div class="student">
           <label for="firstName">Student</label>
-          <input id="firstName" name="firstName" type="text" autocomplete="off" placeholder="add name" required>
-          <ol class="courses">
-          </ol>
+          <input id="firstName" name="firstName" type="text" autocomplete="off" 
+            placeholder="add name" value="${firstName}" tabindex="1" required>
+          <div class="courses">
+            <slot></slot>
+          </div>
           <div class="actions">
-            <i class="icon" title="Add Course">playlist_add</i>
+            <i class="icon" title="Add Course" tabindex="2">playlist_add</i>
           </div>
         </div>
       `
@@ -55,7 +56,7 @@ export default class Student extends HTMLElement {
         data.firstName = this.shadow.getElementById('firstName').value
         data.courses = []
         
-        this.shadow.querySelectorAll('ext-course').forEach(course => {
+        this.shadow.querySelector('slot').assignedElements().forEach(course => {
           course.dispatchEvent(new CustomEvent('export', {
             detail: response => {
               data.courses.push(response)
@@ -74,11 +75,8 @@ export default class Student extends HTMLElement {
     }
 
     add () {
-      const coursesElem = this.shadow.querySelector('.courses')
-      const courseElem = document.createElement('ext-course')
-      const liElem = document.createElement('li')
-      liElem.appendChild(courseElem)
+      const course = document.createElement('ext-course')
       
-      coursesElem.appendChild(liElem)
+      this.appendChild(course)
     }
 }
