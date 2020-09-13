@@ -1,8 +1,7 @@
+/**
+ * Defines a Course web component.
+ */
 export default class Course extends HTMLElement {
-
-  static get observedAttributes() { 
-    return []
-  }
 
   constructor () {
     super()
@@ -28,7 +27,8 @@ export default class Course extends HTMLElement {
         }
       </style>
       <div class="course">
-        <i class="icon" title="Delete Course">delete_sweep</i>
+        <i class="icon" id="iconDelete" title="Delete Course">delete_sweep</i>
+        <i class="icon" id="iconCopy" title="Copy Course">content_copy</i>
         <fieldset>
           <label for="period">Period</label>
           <input list="periodList" name="period" size="8" tabindex="1" value="${period}">
@@ -69,11 +69,13 @@ export default class Course extends HTMLElement {
         <fieldset>
           <label for="day">Day</label>
           <select id="day" name="day" tabindex="3" required>
-            <option value="1" ${day === 1 ? 'selected' : ''}>Monday</option>
-            <option value="2" ${day === 2 ? 'selected' : ''}>Tuesday</option>
-            <option value="3" ${day === 3 ? 'selected' : ''}>Wednesday</option>
-            <option value="4" ${day === 4 ? 'selected' : ''}>Thursday</option>
-            <option value="5" ${day === 5 ? 'selected' : ''}>Friday</option>
+            <option value="1" ${day === '1' ? 'selected' : ''}>Monday</option>
+            <option value="2" ${day === '2' ? 'selected' : ''}>Tuesday</option>
+            <option value="3" ${day === '3' ? 'selected' : ''}>Wednesday</option>
+            <option value="4" ${day === '4' ? 'selected' : ''}>Thursday</option>
+            <option value="5" ${day === '5' ? 'selected' : ''}>Friday</option>
+            <option value="6" ${day === '6' ? 'selected' : ''}>Saturday</option>
+            <option value="0" ${day === '0' ? 'selected' : ''}>Sunday</option>
           </select>
         </fieldset>
         <fieldset>
@@ -87,20 +89,24 @@ export default class Course extends HTMLElement {
       </div>
     `
 
-    // Create shadow DOM markup
+    // Create shadow DOM markup.
     this.shadow.innerHTML = template
 
-    // Apply main styles to the shadow dom
+    // Apply main styles to the shadow dom.
     const linkElem = document.createElement('link');
     linkElem.setAttribute('rel', 'stylesheet');
     linkElem.setAttribute('href', 'styles/styles.css');
     this.shadow.appendChild(linkElem);
 
-    // Add event hanlders
-    this.shadow.querySelector('.course .icon').addEventListener('click', (e) => {
-      this.remove(e.target)
+    // Set all event listeners.
+    this.shadow.getElementById('iconDelete').addEventListener('click', (e) => {
+      this.remove()
     })
 
+    this.shadow.getElementById('iconCopy').addEventListener('click', (e) => {
+      this.closest('ext-student').appendChild(this.cloneNode(true))
+    })
+    
     this.addEventListener('export', e => {
       const data = {}
 
@@ -113,16 +119,5 @@ export default class Course extends HTMLElement {
 
       e.detail(data)
     })
-  }
-
-  disconnectedCallback () {
-  }
-
-  attributeChangedCallback (name, oldValue, newValue) {
- 
-  }
-
-  remove (target) {
-    target.closest('.course').remove()
   }
 }

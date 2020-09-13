@@ -3,9 +3,12 @@
   "version": "1.0",
   "description": "Receive notifications when your children's classes are about to start.",
   "manifest_version": 2,
-  "default_locale": "en",
   "permissions": ["storage", "notifications"],
   "options_page": "options.html",
+  "background": {
+    "scripts": [ "background.js" ],
+    "persistent": false
+  },
   "icons": {
     "16": "images/get_started16.png",
     "32": "images/get_started32.png",

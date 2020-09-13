@@ -1,7 +1,7 @@
+/**
+ * Defines a Student web component.
+ */
 export default class Student extends HTMLElement {
-    static get observedAttributes() { 
-      return []
-    }
 
     constructor () {
       super()
@@ -37,7 +37,7 @@ export default class Student extends HTMLElement {
         </div>
       `
       
-      // Create shadow DOM markup
+      // Create shadow DOM markup.
       this.shadow.innerHTML = template
 
       // Apply main styles to the shadow dom
@@ -46,9 +46,11 @@ export default class Student extends HTMLElement {
       linkElem.setAttribute('href', 'styles/styles.css');
       this.shadow.appendChild(linkElem);
 
-      // Add event hanlders
+      // Add event hanlders.
       this.shadow.querySelector('.actions .icon').addEventListener('click', (e) => {
-        this.add()
+        const course = document.createElement('ext-course')
+      
+        this.appendChild(course)
       })
 
       this.addEventListener('save', e => {
@@ -66,17 +68,5 @@ export default class Student extends HTMLElement {
 
         e.detail(data)
       })
-    }
-
-    disconnectedCallback () {
-    }
-
-    attributeChangedCallback (name, oldValue, newValue) {
-    }
-
-    add () {
-      const course = document.createElement('ext-course')
-      
-      this.appendChild(course)
     }
 }
