@@ -14,21 +14,25 @@ export default class Course extends HTMLElement {
     const className = this.getAttribute('className') || ''
     const day = this.getAttribute('day') || ''
     const startTime = this.getAttribute('startTime') || ''
-    const endTime = this.getAttribute('endTime') || ''
 
     const template = `
       <style>
         .course {
           display: flex;
-          margin-bottom: 20px;
         }
         fieldset {
           border: none;
+          padding: 10px;
+        }
+        input, select {
+          padding: 3px 4px;
+          color: var(--black);
+          border: none;
+          border-bottom: 1px solid var(--black);
+          background-color: var(--gray-light);
         }
       </style>
       <div class="course">
-        <i class="icon" id="iconDelete" title="Delete Course">delete_sweep</i>
-        <i class="icon" id="iconCopy" title="Copy Course">content_copy</i>
         <fieldset>
           <label for="period">Period</label>
           <input list="periodList" name="period" size="8" tabindex="1" value="${period}">
@@ -82,10 +86,10 @@ export default class Course extends HTMLElement {
           <label for="startTime">Start Time</label>
           <input type="time" name="startTime" min="06:00" max="21:00" value="${startTime}" tabindex="4" required>
         </fieldset>
-        <fieldset>
-          <label for="endTime">End Time</label>
-          <input type="time" name="endTime" min="06:00" max="21:00" value="${endTime}" tabindex="5" required>
-        </fieldset>
+        <span class="actions">
+          <i class="icon delete" id="iconDelete" title="Delete Course">clear</i>
+          <i class="icon copy" id="iconCopy" tabindex="0" title="Copy Course">content_copy</i>
+        </span>
       </div>
     `
 
@@ -95,7 +99,7 @@ export default class Course extends HTMLElement {
     // Apply main styles to the shadow dom.
     const linkElem = document.createElement('link');
     linkElem.setAttribute('rel', 'stylesheet');
-    linkElem.setAttribute('href', 'styles/styles.css');
+    linkElem.setAttribute('href', 'styles/icons.css');
     this.shadow.appendChild(linkElem);
 
     // Set all event listeners.
@@ -106,8 +110,8 @@ export default class Course extends HTMLElement {
     this.shadow.getElementById('iconCopy').addEventListener('click', (e) => {
       this.closest('ext-student').appendChild(this.cloneNode(true))
     })
-    
-    this.addEventListener('export', e => {
+
+    this.addEventListener('export', (e) => {
       const data = {}
 
       this.shadow.querySelectorAll('input').forEach(input => {

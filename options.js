@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 function add () {
   const student = document.createElement('ext-student')
+  student.appendChild(document.createElement('ext-course'))
   studentsDiv.append(student)
 }
 

@@ -1,47 +1,21 @@
-@font-face {
-    font-family: 'Material Icons';
-    font-style: normal;
-    font-weight: 400;
-    src: url(MaterialIcons-Regular.eot); /* For IE6-8 */
-    src: local('Material Icons'),
-        local('MaterialIcons-Regular'),
-        url(MaterialIcons-Regular.woff2) format('woff2'),
-        url(MaterialIcons-Regular.woff) format('woff'),
-        url(MaterialIcons-Regular.ttf) format('truetype');
+:root {
+    --red: #e53935;
+    --red-light: #ff6f60;
+    --yellow: #fdd835;
+    --yellow-light: #ffff6b;
+    --blue: #1e88e5;
+    --blue-light: #6ab7ff;
+    --green: #388e3c;
+    --green-light: #6abf69;
+    --white: #fff;
+    --black: #000;
+    --gray-light: #cdcdcd;
 }
 
 .actions {
-    margin-top: 20px;
-}
-
-.icon {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-
-    /* Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-
-    /* Support for IE. */
-    font-feature-settings: 'liga';
-}
-
-.icon:hover {
-    color: gray;
-    cursor: pointer;
+    display: flex;
+    justify-content: space-evenly;
+    width: 90px;
 }
 
 .students {

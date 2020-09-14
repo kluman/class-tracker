@@ -32,7 +32,8 @@ export default class Student extends HTMLElement {
             <slot></slot>
           </div>
           <div class="actions">
-            <i class="icon" title="Add Course" tabindex="2">playlist_add</i>
+            <i class="icon add" id="iconAdd" title="Add Course" tabindex="2">playlist_add</i>
+            <i class="icon delete" id="iconDelete" title="Remove Student" tabindex="3">clear</i>
           </div>
         </div>
       `
@@ -43,17 +44,21 @@ export default class Student extends HTMLElement {
       // Apply main styles to the shadow dom
       const linkElem = document.createElement('link');
       linkElem.setAttribute('rel', 'stylesheet');
-      linkElem.setAttribute('href', 'styles/styles.css');
+      linkElem.setAttribute('href', 'styles/icons.css');
       this.shadow.appendChild(linkElem);
 
       // Add event hanlders.
-      this.shadow.querySelector('.actions .icon').addEventListener('click', (e) => {
-        const course = document.createElement('ext-course')
-      
-        this.appendChild(course)
+      this.shadow.getElementById('iconAdd').addEventListener('click', () => {      
+        this.appendChild(document.createElement('ext-course'))
       })
 
-      this.addEventListener('save', e => {
+      this.shadow.getElementById('iconDelete').addEventListener('click', () => { 
+        if (confirm(`Are you sure you want to delete ${firstName}? This action can not be undone.`)) {
+          this.remove()
+        }    
+      })
+
+      this.addEventListener('save', (e) => {
         const data = {}
         data.firstName = this.shadow.getElementById('firstName').value
         data.courses = []
