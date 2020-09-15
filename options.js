@@ -38,7 +38,6 @@ function save () {
 
   chrome.storage.sync.set({'class-tracker': JSON.stringify(record)}, () => {
     alert('Saved')
-    chrome.runtime.sendMessage({refresh: true})
   })
 }
 

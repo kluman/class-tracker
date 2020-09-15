@@ -7,16 +7,31 @@
  */
 
 const timeOffset = 300000 // 5 minutes
-let record = undefined
 
 /**
- * Updates the `record` variable with storage value. 
+ * Sets up alarm event to trigger every minute.
  */
-function refresh () {
-  chrome.storage.sync.get('class-tracker', data => {
-    record = data['class-tracker']
-  })
-}
+chrome.alarms.create('class-tracker', {
+  when: Date.now(),
+  periodInMinutes: 1
+})
+
+/**
+ * Listens for triggered Alarm event and executes check for notifications.
+ * 
+ * @see {@link https://developer.chrome.com/extensions/alarms}
+ */
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === 'class-tracker') {
+    findCourses().then(courses => {
+      courses.forEach(course => {
+        notify(course.firstName, course.course)
+      })
+    })
+  } else if (alarm.name === 'class-tracker-clear') {
+    chrome.notifications.clear(no)
+  }
+})
 
 /**
  * Sends a Notification to the user that a course is about to begin.
@@ -57,65 +72,43 @@ function clear (notificationId) {
  * @param {number} num 
  */
 function pad (num) {
-    return num.toString().padStart(2, '0')
+  return num.toString().padStart(2, '0')
 }
 
 /**
- * Scans the `record` checking to see if any course start times match the
- * current time plus the `offsetTime` set. 
+ * Checks storage for saved data and checks if current time plus the `offsetTime` set. 
  * 
  * @returns {Array} Empty if none found or object(s) of student name and course.
  */
 function findCourses () {
-  const courses = []
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get('class-tracker', data => {
+      const courses = []
 
-  if (record) {
-    const students = JSON.parse(record)
-    const now = new Date()
-    now.setMilliseconds(now.getMilliseconds() + timeOffset)
-    
-    const offsetHour = pad(now.getHours())
-    const offsetMin = pad(now.getMinutes())
-    const offsetDay = now.getDay().toString()
-    
-    students.forEach(student => {
-      if (student.courses) {
-        student.courses.forEach(course => {
-          if (course.startTime && course.day) {
-            const [ hour, minutes ] = course.startTime.split(':')
-            if ((course.day === offsetDay) && (minutes === offsetMin) && (hour === offsetHour)) {
-              courses.push({'firstName': student.firstName, 'course': course})
-            }
+      if (data && data["class-tracker"]) {
+        const students = JSON.parse(data["class-tracker"])
+        const now = new Date()
+        now.setMilliseconds(now.getMilliseconds() + timeOffset)
+        
+        const offsetHour = pad(now.getHours())
+        const offsetMin = pad(now.getMinutes())
+        const offsetDay = now.getDay().toString()
+        
+        students.forEach(student => {
+          if (student.courses) {
+            student.courses.forEach(course => {
+              if (course.startTime && course.day) {
+                const [ hour, minutes ] = course.startTime.split(':')
+                if ((course.day === offsetDay) && (minutes === offsetMin) && (hour === offsetHour)) {
+                  courses.push({'firstName': student.firstName, 'course': course})
+                }
+              }
+            })
           }
         })
-      }
-    })  
-  }
+      } 
 
-  return courses
+      resolve(courses)
+    })
+  })
 }
-
-/**
- * Do intial setup when extension is installed.
- */
-chrome.runtime.onInstalled.addListener(() => {
-
-    // Every minute run check to see if courses are about to begin.
-    window.setInterval(() => {
-      findCourses().forEach(course => {
-        notify(course.firstName, course.course)
-      })
-    }, 60000)
-
-})
-
-/**
- * Listens for message events coming from other parts of the extension.
- * 
- * @see {@link https://developer.chrome.com/extensions/messaging}
- */
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.refresh) {
-    refresh()
-  }
-})
