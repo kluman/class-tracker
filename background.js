@@ -11,7 +11,7 @@ const timeOffset = 300000 // 5 minutes
 /**
  * Sets up alarm event to trigger every minute.
  */
-chrome.alarms.create('class-tracker', {
+chrome.alarms.create('class-tracker-polling', {
   when: Date.now(),
   periodInMinutes: 1
 })
@@ -22,14 +22,15 @@ chrome.alarms.create('class-tracker', {
  * @see {@link https://developer.chrome.com/extensions/alarms}
  */
 chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === 'class-tracker') {
+  if (alarm.name === 'class-tracker-polling') {
     findCourses().then(courses => {
       courses.forEach(course => {
         notify(course.firstName, course.course)
       })
     })
-  } else if (alarm.name === 'class-tracker-clear') {
-    chrome.notifications.clear(no)
+  } else {
+    // Assumes all other alarm names are the name set on the notification.
+    chrome.notifications.clear(alarm.name)
   }
 })
 
@@ -42,28 +43,28 @@ chrome.alarms.onAlarm.addListener((alarm) => {
  */
 function notify (name, course) {
   const title = `Class Tracker / ${name}`
-  const message = `${course.className} starts at ${course.startTime}`
+  let [ hour, min ] = course.startTime.split(':').map(i => parseInt(i))
+  let amPm
+
+  if (hour > 12) {
+    hour = hour - 12
+    amPm = 'PM'
+  } else {
+    amPm = 'AM'
+  }
+
+  const message = `${course.className} starts at ${hour}:${min} ${amPm}`
 
   chrome.notifications.create(name, {
     type: 'basic',
     title: title,
     message: message,
-    iconUrl: './images/get_started16.png'
+    iconUrl: './images/logo_128.png'
   }, (e) => { 
-    clear(name) 
+    chrome.alarms.create(name, {
+      when: Date.now() + 15000
+    })
   })
-}
-
-/**
- * Closes the Notification sent to the user.
- * 
- * @param {string} notificationId Identifier, usually the student name, of the Notification.
- * @see {@link https://developer.chrome.com/extensions/notifications}
- */
-function clear (notificationId) {
-  setTimeout(() => {
-    chrome.notifications.clear(notificationId, () => {})
-  }, 15000)
 }
 
 /**
