@@ -1,0 +1,29 @@
+@import 'icons.css';
+
+input {
+    border: solid 1px var(--blue-light);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    outline: none;
+    padding: 3px 6px;
+    margin-left: -4px;
+    display: inline-block;
+  }
+  label {
+    border: solid 1px var(--blue-light);
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 3px 6px;
+    background: var(--blue-light);
+    color: var(--white); 
+  }
+  input:focus {
+    border: solid 1px var(--blue-light);
+  }
+  .inputGroup {
+    display: inline-flex;
+  }
+  .days {
+  }
+  .actions {
+  }
