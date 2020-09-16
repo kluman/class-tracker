@@ -17,16 +17,18 @@ export default class Student extends HTMLElement {
       <div class="day">
         <fieldset>
           <legend>Choose the day and add courses</legend>
-          <label for="day">Day</label>
-          <select id="day" name="day" tabindex="3" required>
-            <option value="1" ${day === '1' ? 'selected' : ''}>Monday</option>
-            <option value="2" ${day === '2' ? 'selected' : ''}>Tuesday</option>
-            <option value="3" ${day === '3' ? 'selected' : ''}>Wednesday</option>
-            <option value="4" ${day === '4' ? 'selected' : ''}>Thursday</option>
-            <option value="5" ${day === '5' ? 'selected' : ''}>Friday</option>
-            <option value="6" ${day === '6' ? 'selected' : ''}>Saturday</option>
-            <option value="0" ${day === '0' ? 'selected' : ''}>Sunday</option>
-          </select>
+          <div class="inputGroup">
+            <label for="day">Day</label>
+            <select id="day" name="day" tabindex="3" required>
+              <option value="1" ${day === '1' ? 'selected' : ''}>Monday</option>
+              <option value="2" ${day === '2' ? 'selected' : ''}>Tuesday</option>
+              <option value="3" ${day === '3' ? 'selected' : ''}>Wednesday</option>
+              <option value="4" ${day === '4' ? 'selected' : ''}>Thursday</option>
+              <option value="5" ${day === '5' ? 'selected' : ''}>Friday</option>
+              <option value="6" ${day === '6' ? 'selected' : ''}>Saturday</option>
+              <option value="0" ${day === '0' ? 'selected' : ''}>Sunday</option>
+            </select>
+          </div>
           <div class="courses">
             <slot></slot>
           </div>
@@ -44,7 +46,7 @@ export default class Student extends HTMLElement {
     // Apply main styles to the shadow dom
     const linkElem = document.createElement('link');
     linkElem.setAttribute('rel', 'stylesheet');
-    linkElem.setAttribute('href', 'styles/icons.css');
+    linkElem.setAttribute('href', 'styles/components.css');
     this.shadow.appendChild(linkElem);
 
     // Add event hanlders.

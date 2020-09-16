@@ -14,16 +14,16 @@ export default class Student extends HTMLElement {
 
       const template = `
         <style>
-          .student {
-            margin-bottom: 10px;
-          }
           .days {
+            margin-top: var(--space-med);
           }
         </style>
         <div class="student">
-          <label for="firstName">Student</label>
-          <input id="firstName" name="firstName" type="text" autocomplete="off" 
-            placeholder="add name" value="${firstName}" tabindex="1" required>
+          <div class="inputGroup">
+            <label for="firstName">Student</label>
+            <input id="firstName" name="firstName" type="text" autocomplete="off" 
+              placeholder="add name" value="${firstName}" tabindex="1" required>
+          </div>
           <div class="days">
             <slot></slot>
           </div>
@@ -40,7 +40,7 @@ export default class Student extends HTMLElement {
       // Apply main styles to the shadow dom
       const linkElem = document.createElement('link');
       linkElem.setAttribute('rel', 'stylesheet');
-      linkElem.setAttribute('href', 'styles/icons.css');
+      linkElem.setAttribute('href', 'styles/components.css');
       this.shadow.appendChild(linkElem);
 
       // Add event hanlders.

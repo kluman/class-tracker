@@ -16,23 +16,18 @@ export default class Course extends HTMLElement {
 
     const template = `
       <style>
+        .inputGroup {
+          margin-right: var(--space-med);
+          margin-bottom: 0;
+        }
         .course {
           display: flex;
-        }
-        fieldset {
-          border: none;
-          padding: 10px;
-        }
-        input, select {
-          padding: 3px 4px;
-          color: var(--black);
-          border: none;
-          border-bottom: 1px solid var(--black);
-          background-color: var(--gray-light);
+          justify-content: center;
+          align-items: center;
         }
       </style>
       <div class="course">
-        <fieldset>
+        <div class="inputGroup">
           <label for="period">Period</label>
           <input list="periodList" name="period" size="8" tabindex="1" value="${period}">
           <datalist id="periodList">
@@ -48,8 +43,8 @@ export default class Course extends HTMLElement {
             <option value="9">
             <option value="10">
           </datalist>
-        </fieldset>
-        <fieldset>
+        </div>
+        <div class="inputGroup">
           <label for="className">Class</label>
           <input name="className" list="classNameList" type="text" tabindex="2" autocomplete="off" value="${className}" required>
           <datalist id="classNameList">
@@ -68,11 +63,11 @@ export default class Course extends HTMLElement {
             <option value="Science">
             <option value="Study Hall">
           </datalist>
-        </fieldset>
-        <fieldset>
+        </div>
+        <div class="inputGroup">
           <label for="startTime">Start Time</label>
           <input type="time" name="startTime" min="06:00" max="21:00" value="${startTime}" tabindex="4" required>
-        </fieldset>
+        </div>
         <span class="actions">
           <i class="icon delete" id="iconDelete" title="Delete Course">clear</i>
         </span>
@@ -85,7 +80,7 @@ export default class Course extends HTMLElement {
     // Apply main styles to the shadow dom.
     const linkElem = document.createElement('link');
     linkElem.setAttribute('rel', 'stylesheet');
-    linkElem.setAttribute('href', 'styles/icons.css');
+    linkElem.setAttribute('href', 'styles/components.css');
     this.shadow.appendChild(linkElem);
 
     // Set all event listeners.
