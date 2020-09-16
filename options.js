@@ -2,9 +2,11 @@
  * Handles all interaction for the `options.html` page.
  */
 import Course from './components/Course.js'
+import Day from './components/Day.js'
 import Student from './components/Student.js'
 
 customElements.define('ext-student', Student)
+customElements.define('ext-day', Day)
 customElements.define('ext-course', Course)
 
 const addIcon = document.querySelector('.add')
@@ -20,9 +22,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
 })
 
 function add () {
-  const student = document.createElement('ext-student')
-  student.appendChild(document.createElement('ext-course'))
-  studentsDiv.append(student)
+  const studentElement = document.createElement('ext-student')
+  const dayElement = document.createElement('ext-day')
+  
+  dayElement.appendChild(document.createElement('ext-course'))
+  studentElement.appendChild(dayElement)
+  studentsDiv.append(studentElement)
 }
 
 function save () {
@@ -48,23 +53,28 @@ function load () {
     if (record) {
       const students = JSON.parse(record)
       students.forEach(student => {
-        const studentElem = document.createElement('ext-student')
-        studentElem.setAttribute('firstName', student.firstName || '')
+        const studentElement = document.createElement('ext-student')
+        studentElement.setAttribute('firstName', student.firstName || '')
 
-        studentsDiv.appendChild(studentElem)
+        studentsDiv.appendChild(studentElement)
 
-        if (student.courses) {
-          student.courses.forEach(course => {
-            const courseElem = document.createElement('ext-course')
-            courseElem.setAttribute('period', course.period || '')
-            courseElem.setAttribute('className', course.className || '')
-            courseElem.setAttribute('day', course.day || '')
-            courseElem.setAttribute('startTime', course.startTime || '')
-            courseElem.setAttribute('endTime', course.endTime || '')
+        student.days.forEach(day => {
+          const dayElement = document.createElement('ext-day')
+          dayElement.setAttribute('day', day.index)
 
-            studentElem.appendChild(courseElem)
+          studentElement.appendChild(dayElement)
+
+          day.courses.forEach(course => {
+            const courseElement = document.createElement('ext-course')
+            courseElement.setAttribute('period', course.period || '')
+            courseElement.setAttribute('className', course.className || '')
+            courseElement.setAttribute('day', course.day || '')
+            courseElement.setAttribute('startTime', course.startTime || '')
+            courseElement.setAttribute('endTime', course.endTime || '')
+
+            dayElement.appendChild(courseElement)
           })
-        }
+        })
       })
     }
   })

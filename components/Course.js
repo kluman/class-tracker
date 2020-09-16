@@ -12,7 +12,6 @@ export default class Course extends HTMLElement {
   connectedCallback () {
     const period = this.getAttribute('period') || ''
     const className = this.getAttribute('className') || ''
-    const day = this.getAttribute('day') || ''
     const startTime = this.getAttribute('startTime') || ''
 
     const template = `
@@ -71,24 +70,11 @@ export default class Course extends HTMLElement {
           </datalist>
         </fieldset>
         <fieldset>
-          <label for="day">Day</label>
-          <select id="day" name="day" tabindex="3" required>
-            <option value="1" ${day === '1' ? 'selected' : ''}>Monday</option>
-            <option value="2" ${day === '2' ? 'selected' : ''}>Tuesday</option>
-            <option value="3" ${day === '3' ? 'selected' : ''}>Wednesday</option>
-            <option value="4" ${day === '4' ? 'selected' : ''}>Thursday</option>
-            <option value="5" ${day === '5' ? 'selected' : ''}>Friday</option>
-            <option value="6" ${day === '6' ? 'selected' : ''}>Saturday</option>
-            <option value="0" ${day === '0' ? 'selected' : ''}>Sunday</option>
-          </select>
-        </fieldset>
-        <fieldset>
           <label for="startTime">Start Time</label>
           <input type="time" name="startTime" min="06:00" max="21:00" value="${startTime}" tabindex="4" required>
         </fieldset>
         <span class="actions">
           <i class="icon delete" id="iconDelete" title="Delete Course">clear</i>
-          <i class="icon copy" id="iconCopy" tabindex="0" title="Copy Course">content_copy</i>
         </span>
       </div>
     `
@@ -107,19 +93,12 @@ export default class Course extends HTMLElement {
       this.remove()
     })
 
-    this.shadow.getElementById('iconCopy').addEventListener('click', (e) => {
-      this.closest('ext-student').appendChild(this.cloneNode(true))
-    })
-
     this.addEventListener('export', (e) => {
       const data = {}
 
       this.shadow.querySelectorAll('input').forEach(input => {
         data[input.getAttribute('name')] = input.value ? input.value : ''
       })
-
-      const day = this.shadow.getElementById('day')
-      data.day = day.options[day.selectedIndex].value
 
       e.detail(data)
     })
