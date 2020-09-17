@@ -33,8 +33,9 @@ export default class Student extends HTMLElement {
             <slot></slot>
           </div>
           <div class="actions">
-            <i class="icon add" id="iconAdd" title="Add Course" tabindex="2">playlist_add</i>
-            <i class="icon delete" id="iconDelete" title="Remove Day and Courses" tabindex="3">clear</i>
+            <i class="icon add" id="iconAdd" title="Add Course" tabindex="2">add_task</i>
+            <i class="icon copy" id="iconCopy" title="Copy Day Course" tabindex="3">content_copy</i>
+            <i class="icon delete" id="iconDelete" title="Remove Day and Courses" tabindex="4">delete</i>
           </div>
         </fieldset>
       </div>
@@ -61,6 +62,17 @@ export default class Student extends HTMLElement {
       if (confirm(`Are you sure you want to delete ${dayDisplay}? This action can not be undone.`)) {
         this.remove()
       }    
+    })
+
+    this.shadow.getElementById('iconCopy').addEventListener('click', () => { 
+      const clone = this.cloneNode(true)  
+      const day = this   
+      this.closest('ext-student').appendChild(clone)
+
+      day.shadow.querySelectorAll('input').forEach(input => {
+        const name = input.getAttribute('name')
+        clone.querySelector(`input[name="${name}"]`).value = input.value ? input.value : ''
+      })
     })
 
     this.addEventListener('export', (e) => {

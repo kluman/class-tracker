@@ -48,6 +48,11 @@ h2 {
     margin: var(--space-small) var(--space-large);
 }
 
+ext-student {
+    display: block;
+    margin-top: var(--space-lg);
+}
+
 ext-day {
     display: block;
     margin-bottom: var(--space-med);

@@ -18,7 +18,7 @@ export default class Student extends HTMLElement {
             margin-top: var(--space-med);
           }
         </style>
-        <div class="student">
+        <form class="student">
           <div class="inputGroup">
             <label for="firstName">Student</label>
             <input id="firstName" name="firstName" type="text" autocomplete="off" 
@@ -31,7 +31,7 @@ export default class Student extends HTMLElement {
             <i class="icon add" id="iconAdd" title="Add Day" tabindex="2">playlist_add</i>
             <i class="icon delete" id="iconDelete" title="Remove Student" tabindex="3">clear</i>
           </div>
-        </div>
+        </form>
       `
       
       // Create shadow DOM markup.

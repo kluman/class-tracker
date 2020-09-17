@@ -13,6 +13,8 @@ export default class Course extends HTMLElement {
     const period = this.getAttribute('period') || ''
     const className = this.getAttribute('className') || ''
     const startTime = this.getAttribute('startTime') || ''
+    const displayTime = this.getAttribute('displayTime') || '30'
+    const triggerTime = this.getAttribute('triggerTime') || '5'
 
     const template = `
       <style>
@@ -68,8 +70,19 @@ export default class Course extends HTMLElement {
           <label for="startTime">Start Time</label>
           <input type="time" name="startTime" min="06:00" max="21:00" value="${startTime}" tabindex="4" required>
         </div>
+        <fieldset>
+          <legend>Notification</legend>
+          <div class="inputGroup">
+            <label for="displayTime">Display (Sec.)</label>
+            <input type="number" name="displayTime" min="5" max="240" value="${displayTime}" tabindex="5">
+          </div>
+          <div class="inputGroup">
+            <label for="triggerTime">Trigger (Min.)</label>
+            <input type="number" name="triggerTime" min="1" max="15" value="${triggerTime}" tabindex="6">
+          </div>
+        </fieldset>
         <span class="actions">
-          <i class="icon delete" id="iconDelete" title="Delete Course">clear</i>
+          <i class="icon delete" tabindex="0" id="iconDelete" title="Delete Course">delete_outline</i>
         </span>
       </div>
     `
@@ -86,6 +99,14 @@ export default class Course extends HTMLElement {
     // Set all event listeners.
     this.shadow.getElementById('iconDelete').addEventListener('click', (e) => {
       this.remove()
+    })
+
+    this.shadow.querySelectorAll('input').forEach(input => {
+      // Will trigger display of invalid fields on input.
+      input.addEventListener('input', (e) => {
+        input.checkValidity()
+        input.reportValidity()
+      })
     })
 
     this.addEventListener('export', (e) => {

@@ -17,8 +17,18 @@ input {
     background: var(--blue-light);
     color: var(--white); 
   }
+  label[for="startTime"] {
+    align-self: center;
+    padding: 6px 6px;
+  }
   input:focus {
     border: solid 1px var(--blue-light);
+  }
+  input:invalid {
+    border: solid 1px var(--red);
+  }
+  input:out-of-range {
+    border: solid 1px var(--red);
   }
   .inputGroup {
     display: inline-flex;

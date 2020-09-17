@@ -96,16 +96,21 @@ function findCourses () {
         const offsetDay = now.getDay().toString()
         
         students.forEach(student => {
-          if (student.courses) {
-            student.courses.forEach(course => {
-              if (course.startTime && course.day) {
-                const [ hour, minutes ] = course.startTime.split(':')
-                if ((course.day === offsetDay) && (minutes === offsetMin) && (hour === offsetHour)) {
-                  courses.push({'firstName': student.firstName, 'course': course})
-                }
+          const day = student.days.filter(day => day.index === offsetDay)
+          if (day.length > 0) {
+            day.forEach(d => {
+              if (d.courses) {
+                d.courses.forEach(course => {
+                  if (course.startTime) {
+                    const [ hour, minutes ] = course.startTime.split(':')
+                    if ((minutes === offsetMin) && (hour === offsetHour)) {
+                      courses.push({'firstName': student.firstName, 'course': course})
+                    }
+                  }
+                })
               }
             })
-          }
+          } 
         })
       } 
 
