@@ -1,3 +1,5 @@
+import addValidityCheck from './addValidityCheck.js'
+
 /**
  * Defines a Day web component used to hold a Student's set of Courses.
  */
@@ -20,6 +22,7 @@ export default class Student extends HTMLElement {
           <div class="inputGroup">
             <label for="day">Day</label>
             <select id="day" name="day" tabindex="3" required>
+              <option value=""></option>
               <option value="1" ${day === '1' ? 'selected' : ''}>Monday</option>
               <option value="2" ${day === '2' ? 'selected' : ''}>Tuesday</option>
               <option value="3" ${day === '3' ? 'selected' : ''}>Wednesday</option>
@@ -63,6 +66,8 @@ export default class Student extends HTMLElement {
         this.remove()
       }    
     })
+
+    addValidityCheck(this.shadow.getElementById('day'))
 
     this.shadow.getElementById('iconCopy').addEventListener('click', () => { 
       const clone = this.cloneNode(true)  

@@ -46,6 +46,9 @@ function save () {
   })
 }
 
+/**
+ * If stored data recreates the form using the various web components.
+ */
 function load () {
   chrome.storage.sync.get('class-tracker', data => {
     const record = data['class-tracker']
@@ -71,6 +74,8 @@ function load () {
             courseElement.setAttribute('day', course.day || '')
             courseElement.setAttribute('startTime', course.startTime || '')
             courseElement.setAttribute('endTime', course.endTime || '')
+            courseElement.setAttribute('displayTime', course.displayTime || '')
+            courseElement.setAttribute('triggerTime', course.triggerTime || '')
 
             dayElement.appendChild(courseElement)
           })

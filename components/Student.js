@@ -1,3 +1,5 @@
+import addValidityCheck from './addValidityCheck.js'
+
 /**
  * Defines a Student web component.
  */
@@ -18,7 +20,7 @@ export default class Student extends HTMLElement {
             margin-top: var(--space-med);
           }
         </style>
-        <form class="student">
+        <div class="student">
           <div class="inputGroup">
             <label for="firstName">Student</label>
             <input id="firstName" name="firstName" type="text" autocomplete="off" 
@@ -31,7 +33,7 @@ export default class Student extends HTMLElement {
             <i class="icon add" id="iconAdd" title="Add Day" tabindex="2">playlist_add</i>
             <i class="icon delete" id="iconDelete" title="Remove Student" tabindex="3">clear</i>
           </div>
-        </form>
+        </div>
       `
       
       // Create shadow DOM markup.
@@ -57,6 +59,8 @@ export default class Student extends HTMLElement {
           this.remove()
         }    
       })
+
+      addValidityCheck(this.shadow.getElementById('firstName'))
 
       this.addEventListener('save', (e) => {
         const data = {}
