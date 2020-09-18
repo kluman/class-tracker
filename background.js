@@ -59,7 +59,7 @@ function notify (name, course) {
     displayTime = defaultDisplay
   }
 
-  const message = `${course.className} starts at ${hour}:${min} ${amPm}`
+  const message = `${course.className} starts at ${hour}:${pad(min)} ${amPm}`
 
   chrome.notifications.create(name, {
     type: 'basic',
