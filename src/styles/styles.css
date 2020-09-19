@@ -1,0 +1,60 @@
+@import 'icons.css';
+
+:root {
+    --red: #e53935;
+    --red-light: #ff6f60;
+    --yellow: #fdd835;
+    --yellow-light: #ffff6b;
+    --blue: #1e88e5;
+    --blue-light: #6ab7ff;
+    --green: #388e3c;
+    --green-light: #6abf69;
+    --white: #fff;
+    --black: #000;
+    --gray-light: #cdcdcd;
+    --space-small: 8px;
+    --space-med: 15px;
+    --space-lg: 20px;
+}
+
+body {
+    margin: var(--space-lg);
+    font-family: Helvetica, "Trebuchet MS", Verdana, sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header img {
+    margin-right: var(--space-small);
+}
+
+h2 {
+    font-size: medium;
+    margin: 0 var(--space-small);
+}
+
+.actions {
+    display: flex;
+    justify-content: space-evenly;
+    width: calc(6 * var(--space-med));
+    margin-top: var(--space-med);
+}
+
+.students {
+    margin: var(--space-small) var(--space-large);
+}
+
+ext-student {
+    display: block;
+    margin-top: var(--space-lg);
+}
+
+ext-day {
+    display: block;
+    margin-bottom: var(--space-med);
+}
+  

@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+        local('MaterialIcons-Regular'),
+        url(MaterialIcons-Regular.woff2) format('woff2'),
+        url(MaterialIcons-Regular.woff) format('woff'),
+        url(MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.icon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    width: 24px;
+    overflow: hidden;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    padding: 8px;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.icon:hover {
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.add {
+    color: var(--green-light);
+}
+
+.add:hover {
+    color: var(--white);
+    background-color: var(--green-light);
+}
+
+.delete {
+    color: var(--red);
+}
+
+.delete:hover {
+    color: var(--white);
+    background-color: var(--red-light);
+}
+
+.save {
+    color: var(--green);
+}
+
+.save:hover {
+    color: var(--white);
+    background-color: var(--green-light);
+}
+
+.copy {
+    color: var(--green-light);
+}
+
+.copy:hover {
+    color: var(--white);
+    background-color: var(--green-light);
+}
