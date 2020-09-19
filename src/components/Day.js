@@ -15,6 +15,17 @@ export default class Student extends HTMLElement {
 
     const template = `
       <style>
+        .day .inputGroup {
+          margin: var(--space-med) 0;
+          font-size: 17px;
+        }
+        .actions {
+          display: inline-block;
+          background: var(--color-complimentary-light);
+          border: solid 1px var(--color-complimentary);
+          border-radius: 5px;
+          padding: var(--space-sm);
+        }
       </style>
       <div class="day">
         <fieldset>

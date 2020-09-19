@@ -43,6 +43,10 @@
     border-radius: 50%;
 }
 
+.icon:focus {
+    outline: none;
+}
+
 .add {
     color: var(--green-light);
 }

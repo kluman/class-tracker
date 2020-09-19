@@ -16,8 +16,18 @@ export default class Student extends HTMLElement {
 
       const template = `
         <style>
+          .student .inputGroup {
+            margin: var(--space-med);
+            font-size: 17px;
+          }
           .days {
             margin-top: var(--space-med);
+          }
+          .actions {
+            display: inline-block;
+            border: solid 1px var(--color-primary);
+            border-radius: 5px;
+            padding: var(--space-sm);
           }
         </style>
         <div class="student">

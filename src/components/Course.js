@@ -15,8 +15,8 @@ export default class Course extends HTMLElement {
     const period = this.getAttribute('period') || ''
     const className = this.getAttribute('className') || ''
     const startTime = this.getAttribute('startTime') || ''
-    const displayTime = this.getAttribute('displayTime') || '15'
-    const triggerTime = this.getAttribute('triggerTime') || '10'
+    const displayTime = this.getAttribute('displayTime') || '30'
+    const triggerTime = this.getAttribute('triggerTime') || '5'
 
     const template = `
       <style>
@@ -26,8 +26,9 @@ export default class Course extends HTMLElement {
         }
         .course {
           display: flex;
-          justify-content: center;
           align-items: center;
+          margin-left: calc(2 * var(--space-lg));
+          margin-bottom: var(--space-med);
         }
       </style>
       <div class="course">
@@ -59,6 +60,7 @@ export default class Course extends HTMLElement {
             <option value="Foreign Language">
             <option value="Government">
             <option value="History">
+            <option value="Health">
             <option value="Lunch">
             <option value="Math">
             <option value="Music">

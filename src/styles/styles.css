@@ -12,9 +12,13 @@
     --white: #fff;
     --black: #000;
     --gray-light: #cdcdcd;
-    --space-small: 8px;
+    --space-sm: 8px;
     --space-med: 15px;
     --space-lg: 20px;
+    --color-primary: #02e6ee;
+    --color-primary-light: #dffbfb;
+    --color-complimentary: #ecec0e;
+    --color-complimentary-light: #f9f9c0;
 }
 
 body {
@@ -29,12 +33,16 @@ header {
 }
 
 header img {
-    margin-right: var(--space-small);
+    margin-right: var(--space-sm);
 }
 
 h2 {
     font-size: medium;
-    margin: 0 var(--space-small);
+    margin: 0 var(--space-sm);
+}
+
+.intro {
+    font-size: 16px;
 }
 
 .actions {
@@ -45,7 +53,9 @@ h2 {
 }
 
 .students {
-    margin: var(--space-small) var(--space-large);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    border-bottom: solid 2px var(--color-primary);
 }
 
 ext-student {

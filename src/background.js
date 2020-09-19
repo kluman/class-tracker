@@ -6,8 +6,8 @@
  * @see {@link https://developer.chrome.com/extensions/api_index}
  */
 
-const defaultTrigger = 10 // minutes
-const defaultDisplay = 15 // seconds
+const defaultTrigger = 5 // minutes
+const defaultDisplay = 30 // seconds
 
 /**
  * Sets up alarm event to trigger every minute.
