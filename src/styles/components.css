@@ -27,11 +27,15 @@ label[for="startTime"] {
 fieldset {
   border: solid 1px var(--color-complimentary);
   border-radius: 3px;
+  background: var(--yellow-light);
 }
 
 legend {
-  padding: 0 var(--space-med);
+  font-style: oblique;
+  padding: 4px 6px;
   font-size: 14px;
+  background-color: var(--white);
+  border-radius: 5px;
 }
 
 select {

@@ -43,7 +43,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
  * @see {@link https://developer.chrome.com/extensions/notifications}
  */
 function notify (name, course) {
-  const title = `Class Tracker / ${name}`
+  const title = `Classminder / ${name}`
   let displayTime = parseInt(course.displayTime)
   let [ hour, min ] = course.startTime.split(':').map(i => parseInt(i))
   let amPm

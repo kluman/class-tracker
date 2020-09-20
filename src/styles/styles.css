@@ -4,10 +4,10 @@
     --red: #e53935;
     --red-light: #ff6f60;
     --yellow: #fdd835;
-    --yellow-light: #ffff6b;
+    --yellow-light: #fafda2;
     --blue: #1e88e5;
     --blue-light: #6ab7ff;
-    --green: #388e3c;
+    --green: #21bf21;
     --green-light: #6abf69;
     --white: #fff;
     --black: #000;
@@ -15,7 +15,7 @@
     --space-sm: 8px;
     --space-med: 15px;
     --space-lg: 20px;
-    --color-primary: #02e6ee;
+    --color-primary: #21bf21;
     --color-primary-light: #dffbfb;
     --color-complimentary: #ecec0e;
     --color-complimentary-light: #f9f9c0;
