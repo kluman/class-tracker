@@ -8,7 +8,7 @@ Classminder lets you receive desktop notifications when your kids classes are ab
 ## Installation
 
 1. Clone this repository. 
-   `git clone git@github.com:kluman/class-tracker.git`
+   `git clone https://github.com/kluman/class-tracker.git`
 2. Open your Chrome browser and open the Extension Management page by navigating to _chrome://extensions_.
    * The Extension Management page can also be opened by clicking on the Chrome menu, hovering over More Tools then selecting Extensions. 
 3. Enable Developer Mode by clicking the toggle switch next to Developer mode.
