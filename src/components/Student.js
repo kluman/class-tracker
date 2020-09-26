@@ -42,7 +42,8 @@ export default class Student extends HTMLElement {
             </div>
             <div class="actions">
               <i class="icon add" id="iconAdd" title="Add Day" tabindex="2">playlist_add</i>
-              <i class="icon delete" id="iconDelete" title="Remove Student" tabindex="3">clear</i>
+              <i class="icon delete active" part="delete" id="iconDelete" title="Remove Student" tabindex="3">clear</i>
+              <i class="icon restore" part="restore" tabindex="0" id="iconRestore" title="Restore Student">restore</i>
             </div>
           </div>
           <div class="days">
@@ -67,30 +68,32 @@ export default class Student extends HTMLElement {
         this.appendChild(dayElement)
       })
 
-      this.shadow.getElementById('iconDelete').addEventListener('click', () => { 
-        firstName = firstName || this.shadow.getElementById('firstName').value
-
-        if (confirm(`Are you sure you want to delete ${firstName}? This action can not be undone.`)) {
-          this.remove()
-        }    
+      this.shadow.getElementById('iconDelete').addEventListener('click', (e) => {
+        this.setAttribute('deleted', '')
+      })
+  
+      this.shadow.getElementById('iconRestore').addEventListener('click', (e) => {
+        this.removeAttribute('deleted')
       })
 
       addValidityCheck(this.shadow.getElementById('firstName'))
 
       this.addEventListener('save', (e) => {
-        const data = {}
-        data.firstName = this.shadow.getElementById('firstName').value
-        data.days = []
-        
-        this.shadow.querySelector('slot').assignedElements().forEach(day => {
-          day.dispatchEvent(new CustomEvent('export', {
-            detail: response => {
-              data.days.push(response)
-            }
-          }))
-        })
+        if (!this.hasAttribute('deleted')) {
+          const data = {}
+          data.firstName = this.shadow.getElementById('firstName').value
+          data.days = []
+          
+          this.shadow.querySelector('slot').assignedElements().forEach(day => {
+            day.dispatchEvent(new CustomEvent('export', {
+              detail: response => {
+                data.days.push(response)
+              }
+            }))
+          })
 
-        e.detail(data)
+          e.detail(data)
+        }
       })
     }
 }

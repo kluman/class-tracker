@@ -43,6 +43,7 @@ function save () {
 
   chrome.storage.sync.set({'class-tracker': JSON.stringify(record)}, () => {
     alert('Saved')
+    document.location = document.location
   })
 }
 

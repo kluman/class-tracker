@@ -86,7 +86,8 @@ export default class Course extends HTMLElement {
           </div>
         </fieldset>
         <span class="actions">
-          <i class="icon delete" tabindex="0" id="iconDelete" title="Delete Course">delete_outline</i>
+          <i class="icon delete active" part="delete" tabindex="0" id="iconDelete" title="Delete Course">delete_outline</i>
+          <i class="icon restore" part="restore" tabindex="0" id="iconRestore" title="Restore Course">restore</i>
         </span>
       </div>
     `
@@ -102,19 +103,25 @@ export default class Course extends HTMLElement {
 
     // Set all event listeners.
     this.shadow.getElementById('iconDelete').addEventListener('click', (e) => {
-      this.remove()
+      this.setAttribute('deleted', '')
+    })
+
+    this.shadow.getElementById('iconRestore').addEventListener('click', (e) => {
+      this.removeAttribute('deleted')
     })
 
     this.shadow.querySelectorAll('input').forEach(input => addValidityCheck(input))
 
     this.addEventListener('export', (e) => {
-      const data = {}
+      if (!this.hasAttribute('deleted')) {
+        const data = {}
 
-      this.shadow.querySelectorAll('input').forEach(input => {
-        data[input.getAttribute('name')] = input.value ? input.value : ''
-      })
+        this.shadow.querySelectorAll('input').forEach(input => {
+          data[input.getAttribute('name')] = input.value ? input.value : ''
+        })
 
-      e.detail(data)
+        e.detail(data)
+      }
     })
   }
 }

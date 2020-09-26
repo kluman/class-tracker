@@ -65,6 +65,16 @@
     background-color: var(--red-light);
 }
 
+.restore {
+    display: none;
+    color: var(--blue);
+}
+
+.restore:hover {
+    color: var(--white);
+    background-color: var(--blue-light);
+}
+
 .save {
     color: var(--green);
 }
@@ -81,4 +91,12 @@
 .copy:hover {
     color: var(--white);
     background-color: var(--green-light);
+}
+
+[deleted] .delete {
+    display: none;
+}
+
+[deleted] .restore {
+    display: inline-block;
 }

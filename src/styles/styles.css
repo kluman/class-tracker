@@ -67,4 +67,20 @@ ext-day {
     display: block;
     margin-bottom: var(--space-med);
 }
+
+ext-course {
+    display: block;
+}
+
+[deleted] {
+    opacity: .5;
+}
+
+[deleted]::part(delete) {
+    display: none;
+}
+
+[deleted]::part(restore) {
+    display: inline-block;
+}
   

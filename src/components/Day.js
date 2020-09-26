@@ -49,7 +49,8 @@ export default class Student extends HTMLElement {
           <div class="actions">
             <i class="icon add" id="iconAdd" title="Add Course" tabindex="2">add_task</i>
             <i class="icon copy" id="iconCopy" title="Copy Day Course" tabindex="3">content_copy</i>
-            <i class="icon delete" id="iconDelete" title="Remove Day and Courses" tabindex="4">delete</i>
+            <i class="icon delete active" part="delete" id="iconDelete" title="Remove Day and Courses" tabindex="4">delete</i>
+            <i class="icon restore" part="restore" tabindex="0" id="iconRestore" title="Restore Day">restore</i>
           </div>
         </fieldset>
       </div>
@@ -69,13 +70,12 @@ export default class Student extends HTMLElement {
       this.appendChild(document.createElement('ext-course'))
     })
 
-    this.shadow.getElementById('iconDelete').addEventListener('click', () => { 
-      const daySelect = this.shadow.getElementById('day')
-      const dayDisplay = daySelect.options[daySelect.selectedIndex].textContent
+    this.shadow.getElementById('iconDelete').addEventListener('click', (e) => {
+      this.setAttribute('deleted', '')
+    })
 
-      if (confirm(`Are you sure you want to delete ${dayDisplay}? This action can not be undone.`)) {
-        this.remove()
-      }    
+    this.shadow.getElementById('iconRestore').addEventListener('click', (e) => {
+      this.removeAttribute('deleted')
     })
 
     addValidityCheck(this.shadow.getElementById('day'))
@@ -95,20 +95,22 @@ export default class Student extends HTMLElement {
     })
 
     this.addEventListener('export', (e) => {
-      const data = {}
-      const day = this.shadow.getElementById('day')
-      data.index = day.options[day.selectedIndex].value
-      data.courses = []
+      if (!this.hasAttribute('deleted')) {
+        const data = {}
+        const day = this.shadow.getElementById('day')
+        data.index = day.options[day.selectedIndex].value
+        data.courses = []
 
-      this.shadow.querySelector('slot').assignedElements().forEach(course => {
-        course.dispatchEvent(new CustomEvent('export', {
-          detail: response => {
-            data.courses.push(response)
-          }
-        }))
-      })
+        this.shadow.querySelector('slot').assignedElements().forEach(course => {
+          course.dispatchEvent(new CustomEvent('export', {
+            detail: response => {
+              data.courses.push(response)
+            }
+          }))
+        })
 
-      e.detail(data)
+        e.detail(data)
+      }
     })
   }
 }
