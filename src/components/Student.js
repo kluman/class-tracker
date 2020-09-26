@@ -16,6 +16,12 @@ export default class Student extends HTMLElement {
 
       const template = `
         <style>
+          .studentHeader {
+            position: sticky;
+            top: 0;
+            display: flex;
+            background: var(--white);
+          }
           .student .inputGroup {
             margin: var(--space-med);
             font-size: 17px;
@@ -24,24 +30,23 @@ export default class Student extends HTMLElement {
             margin-top: var(--space-med);
           }
           .actions {
-            display: inline-block;
-            border: solid 1px var(--color-primary);
-            border-radius: 5px;
             padding: var(--space-sm);
           }
         </style>
         <div class="student">
-          <div class="inputGroup">
-            <label for="firstName">Student</label>
-            <input id="firstName" name="firstName" type="text" autocomplete="off" 
-              placeholder="add name" value="${firstName}" tabindex="1" required>
+          <div class="studentHeader">
+            <div class="inputGroup">
+              <label for="firstName">Student</label>
+              <input id="firstName" name="firstName" type="text" autocomplete="off" 
+                placeholder="add name" value="${firstName}" tabindex="1" required>
+            </div>
+            <div class="actions">
+              <i class="icon add" id="iconAdd" title="Add Day" tabindex="2">playlist_add</i>
+              <i class="icon delete" id="iconDelete" title="Remove Student" tabindex="3">clear</i>
+            </div>
           </div>
           <div class="days">
             <slot></slot>
-          </div>
-          <div class="actions">
-            <i class="icon add" id="iconAdd" title="Add Day" tabindex="2">playlist_add</i>
-            <i class="icon delete" id="iconDelete" title="Remove Student" tabindex="3">clear</i>
           </div>
         </div>
       `
