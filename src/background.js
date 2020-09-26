@@ -36,6 +36,16 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 })
 
 /**
+ * Opens the Classminder options (configuration) page when clicking on a notification.
+ * 
+ * @see {@link https://developer.chrome.com/extensions/notifications}
+ * @see {@link https://developer.chrome.com/extensions/runtime}
+ */
+chrome.notifications.onClicked.addListener((notificationId) => {
+  chrome.runtime.openOptionsPage()
+})
+
+/**
  * Sends a Notification to the user that a course is about to begin.
  * 
  * @param {string} name The student name.
