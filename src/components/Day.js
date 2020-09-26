@@ -85,9 +85,12 @@ export default class Student extends HTMLElement {
       const day = this   
       this.closest('ext-student').appendChild(clone)
 
-      day.shadow.querySelectorAll('input').forEach(input => {
-        const name = input.getAttribute('name')
-        clone.querySelector(`input[name="${name}"]`).value = input.value ? input.value : ''
+      day.shadow.querySelector('slot').assignedElements().forEach((course, i) => {
+        course.shadow.querySelectorAll('input').forEach((input) => {
+          const name = input.getAttribute('name')
+          clone.shadow.querySelector('slot').assignedElements()[i]
+            .shadow.querySelector(`input[name="${name}"]`).value = input.value ? input.value : ''
+        })
       })
     })
 
