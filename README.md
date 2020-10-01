@@ -4,8 +4,10 @@ Classminder lets you receive desktop notifications when your kids classes are ab
 
 <img src="./images/Notification.jpg" style="width: 250px; display: block; margin: 20px 10px;">
 
+Available on [Chrome Web Store](https://chrome.google.com/webstore/detail/classminder/icdjcpgomfenaadchdiboabnhegenjol)
 
-## Installation
+
+## Developer Installation
 
 1. Clone this repository. 
    `git clone https://github.com/kluman/class-tracker.git`
